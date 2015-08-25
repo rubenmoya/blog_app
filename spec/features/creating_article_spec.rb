@@ -7,8 +7,8 @@ RSpec.feature "Creating Articles" do
     visit "/"
     click_link "New Article"
 
-    fill_in "Title", whit: "Creating first article"
-    fill_in "Body", whit: "Body for the first article"
+    fill_in "Title", with: "Creating first article"
+    fill_in "Body", with: "Body for the first article"
 
     click_button "Create Article"
 
