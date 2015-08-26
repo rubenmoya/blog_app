@@ -21,8 +21,9 @@
 
     .container-fluid
       - flash.each do |name, msg|
-        %div{:class => "alert alert-#{name}"}
-          %a.close{"data-dimiss" => "alert", :href => "#"} &#215;
+        %div{:class => "alert alert-#{name} alert-dismissible"}
+          %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
+            %span{"aria-hidden" => "true"} &times;
           = content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String)
 
       .row
