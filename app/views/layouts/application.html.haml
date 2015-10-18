@@ -17,7 +17,7 @@
           =link_to "Blog App", root_path, class: "navbar-brand"
         .navbar-collapse.collapse.navbar-right#navbar-collapse
           %ul.nav.navbar-nav
-            %li.active= link_to "Authors", "#"
+            %li= link_to "Sign up", new_user_registration_path
 
     .container-fluid
       - flash.each do |name, msg|
