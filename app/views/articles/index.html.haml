@@ -1,7 +1,22 @@
-%h1 New article
-=link_to "New Article", new_article_path
+%h1
+  Lastest articles
+  =link_to "New Article", new_article_path, class: "btn btn-default"
 
 %hr/
 
-- @articles.each do |article|
-  =link_to article.title, article
+%section.articles__list
+  - @articles.each do |article|
+    %article.article__item
+      .row
+        .col-md-12
+          %h2=link_to article.title, article
+      .row
+        .col-md-4
+          %img{src: "http://placehold.it/180x120"}
+        .col-md-8
+          %p=truncate(article.body, length: 500)
+          %btn.btn.btn-default.btn-sm Read more
+      .row
+        .col-md-12
+
+    %hr/
