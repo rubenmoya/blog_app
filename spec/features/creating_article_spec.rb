@@ -10,7 +10,7 @@ RSpec.feature "Creating Articles" do
     fill_in "Title", with: "Creating first article"
     fill_in "Body", with: "Body for the first article"
 
-    click_button "Create Article"
+    click_button "Submit"
 
     expect(page).to have_content("Article has been created")
     expect(page.current_path).to eq(articles_path)
