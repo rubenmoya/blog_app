@@ -1,5 +1,10 @@
-%h1= @article.title
+%h1
+  =@article.title
+  =link_to "Edit", edit_article_path(@article), class: "btn btn-primary"
+
 %i.glyphicon.glyphicon-calendar
 =@article.created_at.strftime("%B %d, %Y")
+
 %hr/
+
 %div= simple_format @article.body
