@@ -12,6 +12,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'haml-rails', '~> 0.9.0'
 gem 'bootstrap-sass', '~> 3.3.5.1'
+gem 'devise', '~> 3.5.2'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.3.3'
