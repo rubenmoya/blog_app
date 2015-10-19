@@ -1,24 +1,29 @@
 %h1
   Lastest articles
-  =link_to "New Article", new_article_path, class: "btn btn-default"
+  - if user_signed_in?
+    =link_to "New Article", new_article_path, class: "btn btn-default"
 
 %hr/
 
 %section.articles__list
-  - @articles.each do |article|
-    %article.article__item
-      .row
-        .col-md-12
-          %h2=link_to article.title, article
-      .row
-        .col-md-4
-          %img{src: "http://placehold.it/180x120"}
-        .col-md-8
-          %p=truncate(article.body, length: 500)
-          %btn.btn.btn-default.btn-sm Read more
-      .row
-        .col-md-12
-          Created by:
-          =article.user.email
-
-    %hr/
+  - if @articles.empty?
+    .well.text-center
+      There are no articles yet.
+      %br/
+      =link_to "Write one!", new_article_path
+  - else
+    .row
+      - @articles.each do |article|
+        .col-sm-4.col-xs-12
+          .panel.panel-default
+            .panel-heading
+              %h3.panel-title=link_to article.title, article
+            .panel-body
+              %p
+                %img{src: "http://placehold.it/500x120"}
+              %p=truncate(article.body, length: 80)
+              =link_to "Read more", article, class: "btn btn-default btn-sm"
+            .panel-footer
+              %small
+                Created by:
+                =article.user.email

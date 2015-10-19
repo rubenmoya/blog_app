@@ -1,21 +1,23 @@
 %nav.navbar.navbar-default
-  .container-fuild
-    .navbar-header
-      %button.navbar-toggle.collapsed{"aria-expanded" => "false", "data-target" => "#navbar-collapse", "data-toggle" => "collapse", :type => "button"}
-        %span.icon-bar
-        %span.icon-bar
-        %span.icon-bar
-      =link_to "Blog App", root_path, class: "navbar-brand"
-    .navbar-collapse.collapse.navbar-right#navbar-collapse
-      %ul.nav.navbar-nav
-        - if user_signed_in?
-          %li
-            =link_to edit_user_registration_path do
-              %i.glyphicon.glyphicon-user
-              =current_user.email
+  .container
+    .row
+      .col-md-8.col-md-offset-2
+        .navbar-header
+          %button.navbar-toggle.collapsed{"aria-expanded" => "false", "data-target" => "#navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          =link_to "Blog App", root_path, class: "navbar-brand"
+        .navbar-collapse.collapse.navbar-right#navbar-collapse
+          %ul.nav.navbar-nav
+            - if user_signed_in?
+              %li
+                =link_to edit_user_registration_path do
+                  %i.glyphicon.glyphicon-user
+                  =current_user.email
 
-          %li= link_to "Sign out", destroy_user_session_path, method: :delete
+              %li= link_to "Sign out", destroy_user_session_path, method: :delete
 
-        - else
-          %li= link_to "Sign up", new_user_registration_path
-          %li= link_to "Sign in", new_user_session_path
+            - else
+              %li= link_to "Sign up", new_user_registration_path
+              %li= link_to "Sign in", new_user_session_path
