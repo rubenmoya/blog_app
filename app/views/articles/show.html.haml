@@ -1,16 +1,56 @@
-%h1
-  =@article.title
-  - if user_signed_in? && @article.user == current_user
-    =link_to "Edit", edit_article_path(@article), class: "btn btn-primary btn-xs"
-    =link_to "Delete",
-              article_path(@article),
-              method: :delete,
-              data: { confirm: "Are you sure? It will delete it forever.\n (And forever is a long time)"},
-              class: "btn btn-danger btn-xs"
+.article
+  %h1
+    =@article.title
+    - if user_signed_in? && @article.user == current_user
+      =link_to "Edit", edit_article_path(@article), class: "btn btn-primary btn-xs"
+      =link_to "Delete",
+                article_path(@article),
+                method: :delete,
+                data: { confirm: "Are you sure? It will delete it forever.\n (And forever is a long time)"},
+                class: "btn btn-danger btn-xs"
 
-%i.glyphicon.glyphicon-calendar
-=@article.created_at.strftime("%B %d, %Y")
+  %i.glyphicon.glyphicon-calendar
+  =@article.created_at.strftime("%B %d, %Y")
+
+  %hr/
+
+  %div= simple_format @article.body
 
 %hr/
 
-%div= simple_format @article.body
+.row
+  .col-md-12
+    %h3
+      =pluralize(@article.comments.persisted.count, "Comment")
+
+    %hr/
+    - if @article.comments.any?
+      - @article.comments.persisted.each do |comment|
+        .comment-body
+          = comment.body
+        %i.comment-time
+          \-
+          = time_ago_in_words(comment.created_at)
+          ago by #{comment.user.email}
+        %hr/
+    - else
+      There are no comments to show.
+
+  .col-md-12
+    = form_for [@article, @comment ] do |f|
+      - if @comment.errors.any?
+        .panel.panel-danger
+          .panel-heading
+            %h2.panel-title
+              = pluralize(@comment.errors.count, "error")
+              prohibited this article from being saved:
+            .panel-body
+              %ul
+                - @comment.errors.full_messages.each do |msg|
+                  %li
+                    = msg
+      .form-group
+        = f.label :body, 'New comment'
+        = f.text_area :body, class: 'form-control', placeholder: 'Your comment'
+      .form-group
+        = f.submit "Add comment", class: 'btn btn-primary pull-right'
